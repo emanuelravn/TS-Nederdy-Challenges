@@ -36,6 +36,7 @@ interface CompanyInfo {
 }
 
 type CompanyPublicInfo = OmitByType<CompanyInfo, boolean>
+
 /**
  * Exercise #2: Implement the utility type `If<C, T, F>`, which evaluates a condition `C`
  * and returns one of two possible types:
@@ -52,8 +53,28 @@ type CompanyPublicInfo = OmitByType<CompanyInfo, boolean>
  */
 
 // Add here your solution
-
+type If<C extends boolean, T, F> = C extends true ? T : F
 // Add here your example
+type User<IsAdmin extends boolean> = {
+  id: number
+  username: string
+  isAdmin: IsAdmin
+  permissions: If<IsAdmin, true, false>
+}
+
+const adminUser: User<true> = {
+  id: 1,
+  username: 'Emanuel',
+  isAdmin: true,
+  permissions: true,
+}
+
+const commonUser: User<false> = {
+  id: 2,
+  username: 'user',
+  isAdmin: false,
+  permissions: false,
+}
 
 /**
  * Exercise #3: Recreate the built-in `Readonly<T>` utility type without using it.
