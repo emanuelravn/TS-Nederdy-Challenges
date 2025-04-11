@@ -99,9 +99,22 @@ const commonUser: User<false> = {
  */
 
 // Add here your solution
-
+type MyReadonly<T> = {
+  readonly [K in keyof T]: T[K]
+}
 // Add here your example
+interface Book {
+  title: string
+  description: string
+}
 
+const book: MyReadonly<Book> = {
+  title: 'my book',
+  description: 'this is my book',
+}
+
+book.title = 'your book'
+book.description = 'this is your book'
 /**
  * Exercise #4: Recreate the built-in `ReturnType<T>` utility type without using it.
  *
