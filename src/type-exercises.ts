@@ -115,6 +115,7 @@ const book: MyReadonly<Book> = {
 
 book.title = 'your book'
 book.description = 'this is your book'
+
 /**
  * Exercise #4: Recreate the built-in `ReturnType<T>` utility type without using it.
  *
@@ -134,9 +135,22 @@ book.description = 'this is your book'
  */
 
 // Add here your solution
+type MyReturnType<T extends (...args: any[]) => any> = T extends (
+  ...args: any[]
+) => infer R
+  ? R
+  : never
 
 // Add here your example
+const createCard = (id: number, title: string, desc: string) => {
+  return {
+    id: id,
+    title: title,
+    description: desc,
+  }
+}
 
+type Card = MyReturnType<typeof createCard>
 /**
  * Exercise #5: Extract the type inside a wrapped type like `Promise`.
  *
