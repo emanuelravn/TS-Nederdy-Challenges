@@ -167,7 +167,19 @@ type Card = MyReturnType<typeof createCard>
 
 // Add here your solution
 
+type MyAwaited<T> = T extends Promise<infer R>
+  ? R extends Promise<any>
+    ? MyAwaited<R>
+    : R
+  : T
+
 // Add here your example
+const getUrl = (): Promise<string> => {
+  return Promise.resolve('https://wwww.google.com')
+}
+
+type returnTypeOfFunction = MyReturnType<typeof getUrl>
+type urlType = MyAwaited<returnTypeOfFunction>
 
 /**
  * Exercise 6: Create a utility type `RequiredByKeys<T, K>` that makes specific keys of `T` required.
