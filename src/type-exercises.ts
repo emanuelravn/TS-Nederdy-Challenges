@@ -203,5 +203,18 @@ type urlType = MyAwaited<returnTypeOfFunction>
  */
 
 // Add here your solution
+type RequiredByKeys<T, K extends keyof T = keyof T> = {
+  [P in keyof T as P extends K ? P : never]-?: T[P]
+} &
+  { [P in keyof T as P extends K ? never : P]: T[P] } extends infer R
+  ? { [V in keyof R]: R[V] }
+  : never
 
 // Add here your example
+interface User1 {
+  name?: string
+  age?: 12
+  address?: string
+}
+
+type UserRequiredName = RequiredByKeys<User1, 'name'>
